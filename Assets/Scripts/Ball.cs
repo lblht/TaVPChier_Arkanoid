@@ -5,11 +5,17 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
-    float speed = 7;
+    float speed = 10;
 
     void Start()
     {
         rb.velocity = new Vector2(Random.Range(-1f, 1f), Random.Range(-1f, 1f)).normalized * speed;
+    }
+
+    void FixedUpdate()
+    {
+        if(rb.velocity.magnitude < speed || rb.velocity.magnitude > speed)
+            rb.velocity = rb.velocity.normalized * speed;
     }
 }
 
