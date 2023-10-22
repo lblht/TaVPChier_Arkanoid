@@ -5,11 +5,12 @@ using UnityEngine;
 
 public class Block : MonoBehaviour
 {
-    public delegate void OnBlockDestroyed();
+    public delegate void OnBlockDestroyed(int score);
     public static event OnBlockDestroyed onBlockDestroyed;
 
     public delegate void OnBlockEnabled();
     public static event OnBlockEnabled onBlockEnabled;
+    int blockScore = 10;
 
     void OnEnable()
     {
@@ -20,7 +21,7 @@ public class Block : MonoBehaviour
     void OnDisable()
     {
         if(onBlockDestroyed != null)
-                onBlockDestroyed();
+                onBlockDestroyed(blockScore);
     }
 
     void OnCollisionEnter2D(Collision2D collision)

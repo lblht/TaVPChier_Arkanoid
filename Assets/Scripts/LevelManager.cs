@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class LevelManager : MonoBehaviour
 {
@@ -9,11 +10,15 @@ public class LevelManager : MonoBehaviour
     [SerializeField] SceneLoader sceneLoader;
     [SerializeField] GameObject paddlePrefab;
     [SerializeField] GameObject ballPrefab;
-    
+    [SerializeField] Image livesUI;
+    [SerializeField] TextMeshProUGUI scoreUI;
+    float paddlePosY = -5;
     GameObject paddle;
     List<GameObject> balls = new List<GameObject>();
-
+    int maxLives = 3;
+    int currentLives;
     int numberOfBlocks = 0;
+    int score;
 
     void OnEnable()
     {
@@ -34,11 +39,12 @@ public class LevelManager : MonoBehaviour
     void Start()
     {
         AddPaddleAndBall();
+        UpdateLives(maxLives);
     }
 
     void AddPaddleAndBall()
     {
-        paddle = Instantiate(paddlePrefab, new Vector3(0, -4, 0), Quaternion.identity);
+        paddle = Instantiate(paddlePrefab, new Vector3(0, paddlePosY, 0), Quaternion.identity);
         balls.Add(Instantiate(ballPrefab, paddle.transform.position + new Vector3(0, 0.6f, 0), Quaternion.identity));
         balls[0].transform.parent = paddle.transform;
     }
@@ -48,9 +54,11 @@ public class LevelManager : MonoBehaviour
         numberOfBlocks++;
     }
 
-    void BlockDestroyed()
+    void BlockDestroyed(int score)
     {
         numberOfBlocks--;
+        this.score += score;
+        UpdateScore();
         if(numberOfBlocks <= 0)
             sceneLoader.LoadScene("WinScreen");
     }
@@ -61,7 +69,27 @@ public class LevelManager : MonoBehaviour
         if(balls.Count <= 0)
         {
             Destroy(paddle);
+            UpdateLives(currentLives-1);
             AddPaddleAndBall();
         }
     }
+
+    void UpdateLives(int lives)
+    {
+        if(lives > 0)
+        {
+            currentLives = lives;
+            livesUI.rectTransform.sizeDelta = new Vector2(currentLives * 100, livesUI.sprite.rect.height);
+        }
+        else
+        {
+            sceneLoader.LoadScene("LoseScreen");
+        }
+    }
+
+    void UpdateScore()
+    {
+        scoreUI.text = score.ToString();
+    }
+
 }

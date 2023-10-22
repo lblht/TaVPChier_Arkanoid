@@ -6,7 +6,6 @@ public class Paddle : MonoBehaviour
 {
     float paddleSpeed = 60;
     float posClamp = 8f - 0.223f - 1.25f;
-    float paddlePosY = -4;
     float paddleWidth = 2.5f;
 
     void Update()
@@ -14,7 +13,7 @@ public class Paddle : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X");
         float amountToMove = mouseX * paddleSpeed * Time.deltaTime;
         float paddlePosX = transform.position.x + amountToMove;
-        transform.position = new Vector3(Mathf.Clamp(paddlePosX, -posClamp, posClamp), paddlePosY, 0);
+        transform.position = new Vector3(Mathf.Clamp(paddlePosX, -posClamp, posClamp), transform.position.y, 0);
     }
 
     public float GetPaddleWidth()
