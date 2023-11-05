@@ -12,12 +12,27 @@ EditorBuildSettings:
     path: Assets/Scenes/LevelSelection.unity
     guid: 7fa427fb42b19a046bc33371e3377df2
   - enabled: 1
-    path: Assets/Scenes/Level1.unity
-    guid: 09a4b99fa9620c64eb0963ef3fed4909
-  - enabled: 1
     path: Assets/Scenes/LoseScreen.unity
     guid: e2c956f40d3bf1d45be92e5748b3ef8e
   - enabled: 1
     path: Assets/Scenes/WinScreen.unity
     guid: ba8e89bc28049a24682c10607f8991f4
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level1.unity
+    guid: 09a4b99fa9620c64eb0963ef3fed4909
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level2.unity
+    guid: 4fc4b4d3bbaf1d94fb6801794f9a07fd
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level3.unity
+    guid: f3a8c35ccdc8b404699316fbbb5371b6
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level4.unity
+    guid: adaabd2316c53894495ab7cc55970afa
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level5.unity
+    guid: 987ef43ad09cf5c4db085bc044f9dd3f
+  - enabled: 1
+    path: Assets/Scenes/Levels/Level6.unity
+    guid: 9379f878674d66c4c9e44f9e6f036e00
   m_configObjects: {}

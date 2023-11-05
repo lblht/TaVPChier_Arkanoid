@@ -10,7 +10,8 @@ public class Block : MonoBehaviour
 
     public delegate void OnBlockEnabled();
     public static event OnBlockEnabled onBlockEnabled;
-    int blockScore = 10;
+    [SerializeField] int blockScore;
+    [SerializeField] int hitsToTake;
 
     void OnEnable()
     {
@@ -28,7 +29,17 @@ public class Block : MonoBehaviour
     {
         if (collision.gameObject.tag == "Ball")
         {
-            gameObject.SetActive(false);
+            BlockHit();
         }
+    }
+
+    public void BlockHit()
+    {
+        hitsToTake--;
+
+        if(hitsToTake <= 0)
+            gameObject.SetActive(false); 
+        else
+            Destroy(transform.GetChild(0).gameObject);
     }
 }

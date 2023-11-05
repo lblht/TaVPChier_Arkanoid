@@ -32,10 +32,12 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        rb.velocity = Vector2.zero;
+
         if(collision.gameObject.tag == "Paddle")
         {
             float minAngle = 0;
-            float maxAngle = 90;
+            float maxAngle = 80;
             float paddleWidth = collision.gameObject.GetComponent<Paddle>().GetPaddleWidth();
             float paddlePosX = collision.gameObject.transform.position.x;
             float distance = Mathf.Abs(transform.position.x - paddlePosX);
@@ -47,6 +49,7 @@ public class Ball : MonoBehaviour
         else
         {
             moveDir = Vector3.Reflect(moveDir, collision.contacts[0].normal);
+            Debug.DrawLine(collision.contacts[0].point, collision.contacts[0].point + moveDir * 5f, Color.red, 5f);
         }
 
         rb.velocity = moveDir.normalized * speed;

@@ -10,7 +10,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 328498125119281922, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
       propertyPath: m_Name
-      value: Block Variant
+      value: Blue Block
       objectReference: {fileID: 0}
     - target: {fileID: 8460022667586615336, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
       propertyPath: m_LocalPosition.x
@@ -59,6 +59,10 @@ PrefabInstance:
     - target: {fileID: 8775592260655590234, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
       propertyPath: m_Color.r
       value: 0.11764706
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914255414540073414, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
+      propertyPath: blockScore
+      value: 80
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
