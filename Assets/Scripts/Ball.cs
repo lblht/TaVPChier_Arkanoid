@@ -5,6 +5,7 @@ using UnityEngine;
 public class Ball : MonoBehaviour
 {
     [SerializeField] Rigidbody2D rb;
+    [SerializeField] AudioSource boingSound;
     float speed = 10;
     Vector2 moveDir;
 
@@ -32,6 +33,7 @@ public class Ball : MonoBehaviour
 
     void OnCollisionEnter2D(Collision2D collision)
     {
+        boingSound.Play();
         rb.velocity = Vector2.zero;
 
         if(collision.gameObject.tag == "Paddle")
