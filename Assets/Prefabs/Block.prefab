@@ -145,3 +145,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blockScore: 0
   hitsToTake: 1
+  destroyEffect: {fileID: 7945529743585440664, guid: feb07dd8902999f4fbf4d91199ded269, type: 3}

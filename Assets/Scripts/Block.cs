@@ -12,6 +12,7 @@ public class Block : MonoBehaviour
     public static event OnBlockEnabled onBlockEnabled;
     [SerializeField] int blockScore;
     [SerializeField] int hitsToTake;
+    [SerializeField] GameObject destroyEffect;
 
     void OnEnable()
     {
@@ -38,8 +39,21 @@ public class Block : MonoBehaviour
         hitsToTake--;
 
         if(hitsToTake <= 0)
+        {
+            SpawnDestroyEffect();
             gameObject.SetActive(false); 
+        }
         else
+        {
             Destroy(transform.GetChild(0).gameObject);
+        }
+    }
+
+    void SpawnDestroyEffect()
+    {
+        GameObject effect = Instantiate(destroyEffect, transform.position, Quaternion.identity);
+        var psMain = effect.GetComponent<ParticleSystem>().main;
+        psMain.startColor = GetComponent<SpriteRenderer>().color;
+        Destroy(effect, 5);
     }
 }
