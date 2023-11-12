@@ -8,7 +8,7 @@ public class Ball : MonoBehaviour
     [SerializeField] AudioSource boingSound;
     float speed = 10;
     Vector2 moveDir;
-
+    Vector3 lastFramePos;
     public delegate void OnBallDestroyed(GameObject ball);
     public static event OnBallDestroyed onBallDestroyed;
 
@@ -29,6 +29,12 @@ public class Ball : MonoBehaviour
             if(onBallDestroyed != null)
                 onBallDestroyed(this.gameObject);
         }
+
+        if((transform.position == lastFramePos && transform.parent == null) || rb.velocity.magnitude < 10)
+        {
+            rb.velocity = moveDir.normalized * speed;
+        }
+        lastFramePos = transform.position;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -50,7 +56,13 @@ public class Ball : MonoBehaviour
         }
         else
         {
-            moveDir = Vector3.Reflect(moveDir, collision.contacts[0].normal);
+            if(Vector3.Angle(moveDir, Vector3.Reflect(moveDir, collision.contacts[0].normal)) > 160 )
+            {
+                Quaternion finalRotation = Quaternion.AngleAxis(160, moveDir);
+                moveDir = finalRotation * collision.contacts[0].normal;
+            }
+            else
+                moveDir = Vector3.Reflect(moveDir, collision.contacts[0].normal);
             Debug.DrawLine(collision.contacts[0].point, collision.contacts[0].point + moveDir * 5f, Color.red, 5f);
         }
 
