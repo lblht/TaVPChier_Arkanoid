@@ -7,8 +7,8 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
     [SerializeField] SaveLoadSystem saveLoadSystem;
-
-    string playerName;
+    LevelData lastLevel = new LevelData();
+    SaveData saveData = new SaveData();
 
     void Awake() 
     { 
@@ -20,23 +20,55 @@ public class GameManager : MonoBehaviour
             Instance = this;   
 
         if(!File.Exists(Application.dataPath + "/save.json"))
+        {
             SetPlayerName("UnknowPlayer");
+            saveLoadSystem.Save(saveData);
+        }
         else
-            LoadPlayerName();
+        {
+            saveData = saveLoadSystem.Load();
+        }
     }
 
     public void SetPlayerName(string name)
     {
-        playerName = name;
-        saveLoadSystem.SavePlayerName(playerName);
+        saveData.playerName = name;
     }
     public string GetPlayerName()
     {
-        return playerName;
+        return saveData.playerName;
     }
 
-    string LoadPlayerName()
+    public void LastLevelStats(int levelID, int score, int stars)
     {
-        return playerName = saveLoadSystem.LoadPlayerName();
+        lastLevel.leveID = levelID;
+        lastLevel.score = score;
+        lastLevel.stars = stars;
+
+        LevelData savedLevel = LoadLevelProgress(lastLevel.leveID);
+        if((savedLevel.score < lastLevel.score) || (savedLevel.score == lastLevel.score && savedLevel.stars < lastLevel.stars))
+            SaveLevelProgress(lastLevel);
+    }
+
+    public void SaveLevelProgress(LevelData levelData)
+    {
+        saveData.levelSaves[levelData.leveID-1] = levelData;
+    }
+
+    public LevelData LoadLevelProgress(int levelID)
+    {
+        if(levelID == 0)
+            return lastLevel;
+
+        LevelData loadedLevelData = saveData.levelSaves[levelID-1];
+        if(loadedLevelData == null)
+            return new LevelData();
+        else
+            return loadedLevelData;
+    }
+
+    void OnApplicationQuit()
+    {
+        saveLoadSystem.Save(saveData);
     }
 }

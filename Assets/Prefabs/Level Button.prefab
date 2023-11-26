@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 3735630558026735137}
   - component: {fileID: -1397670142844225790}
   - component: {fileID: -2431006184913741817}
+  - component: {fileID: 1269605510790941071}
   m_Layer: 5
   m_Name: Level Button
   m_TagString: Untagged
@@ -633,6 +634,25 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1269605510790941071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703377721156695070}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb28ffea52dae0f4d98b89806ecbe1a4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LevelID: 0
+  scoreUI: {fileID: 8424235310697307073}
+  starSprites:
+  - {fileID: 1956828656505463547}
+  - {fileID: 9006993175315958569}
+  - {fileID: 5399944444256615070}
+  starColor: {r: 0.18039216, g: 0.8352941, b: 0.4509804, a: 1}
 --- !u!1 &6405942460679325626
 GameObject:
   m_ObjectHideFlags: 0

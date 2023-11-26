@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
@@ -60,7 +61,12 @@ public class LevelManager : MonoBehaviour
         this.score += score;
         UpdateScore();
         if(numberOfBlocks <= 0)
+        {
+            string levelName = SceneManager.GetActiveScene().name; 
+            int levelID = (int)char.GetNumericValue(levelName[levelName.Length - 1]);
+            GameManager.Instance.LastLevelStats(levelID, this.score, currentLives);
             sceneLoader.LoadScene("WinScreen");
+        }
     }
 
     void BallDestroyed(GameObject ball)

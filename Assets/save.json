@@ -1,3 +1,55 @@
 {
-    "playerName": "Jano Mrkva"
+    "playerName": "Jano Mrkva",
+    "levelSaves": [
+        {
+            "leveID": 1,
+            "score": 1560,
+            "stars": 2
+        },
+        {
+            "leveID": 2,
+            "score": 2080,
+            "stars": 3
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        },
+        {
+            "leveID": 0,
+            "score": 0,
+            "stars": 0
+        }
+    ]
 }

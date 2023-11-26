@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class SaveLoadSystem : MonoBehaviour
 {
-    SaveData saveData = new SaveData();
-    public void Save()
+    public void Save(SaveData saveData)
     {
         string json = JsonUtility.ToJson(saveData, true);
         File.WriteAllText(Application.dataPath + "/save.json", json);
@@ -19,7 +18,7 @@ public class SaveLoadSystem : MonoBehaviour
         return JsonUtility.FromJson<SaveData>(json);
     }
 
-    public void SavePlayerName(string playerName)
+    /*public void SavePlayerName(string playerName)
     {
         saveData.playerName = playerName;
         Save();
@@ -39,5 +38,5 @@ public class SaveLoadSystem : MonoBehaviour
     public LevelData LoadLevel(int levelID)
     {
         return Load().levelSaves[levelID];
-    }
+    }*/
 }

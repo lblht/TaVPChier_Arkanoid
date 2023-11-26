@@ -1,11 +1,14 @@
 using System.Collections.Generic;
 
+[System.Serializable]
 public class LevelData
 {
+    public int leveID;
     public int score;
     public int stars;
 }
 
+[System.Serializable]
 public class SaveData
 {
     public string playerName;
