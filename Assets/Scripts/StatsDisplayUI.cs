@@ -9,7 +9,6 @@ public class StatsDisplayUI : MonoBehaviour
     [SerializeField] int LevelID;
     [SerializeField] TextMeshProUGUI scoreUI;
     [SerializeField] List<Image> starSprites;
-
     [SerializeField] Color starColor;
     
     void Start()

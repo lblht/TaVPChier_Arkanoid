@@ -6,7 +6,6 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-    [SerializeField] SaveLoadSystem saveLoadSystem;
     LevelData lastLevel = new LevelData();
     SaveData saveData = new SaveData();
 
@@ -22,11 +21,11 @@ public class GameManager : MonoBehaviour
         if(!File.Exists(Application.dataPath + "/save.json"))
         {
             SetPlayerName("UnknowPlayer");
-            saveLoadSystem.Save(saveData);
+            Save(saveData);
         }
         else
         {
-            saveData = saveLoadSystem.Load();
+            saveData = Load();
         }
     }
 
@@ -41,18 +40,18 @@ public class GameManager : MonoBehaviour
 
     public void LastLevelStats(int levelID, int score, int stars)
     {
-        lastLevel.leveID = levelID;
+        lastLevel.levelID = levelID;
         lastLevel.score = score;
         lastLevel.stars = stars;
 
-        LevelData savedLevel = LoadLevelProgress(lastLevel.leveID);
+        LevelData savedLevel = LoadLevelProgress(lastLevel.levelID);
         if((savedLevel.score < lastLevel.score) || (savedLevel.score == lastLevel.score && savedLevel.stars < lastLevel.stars))
             SaveLevelProgress(lastLevel);
     }
 
     public void SaveLevelProgress(LevelData levelData)
     {
-        saveData.levelSaves[levelData.leveID-1] = levelData;
+        saveData.levelSaves[levelData.levelID-1] = levelData;
     }
 
     public LevelData LoadLevelProgress(int levelID)
@@ -69,6 +68,23 @@ public class GameManager : MonoBehaviour
 
     void OnApplicationQuit()
     {
-        saveLoadSystem.Save(saveData);
+        Save(saveData);
+    }
+
+    public void Save(SaveData saveData)
+    {
+        string json = JsonUtility.ToJson(saveData, true);
+        File.WriteAllText(Application.dataPath + "/save.json", json);
+    }
+
+    public SaveData Load()
+    {
+        string json = File.ReadAllText(Application.dataPath + "/save.json");
+        return JsonUtility.FromJson<SaveData>(json);
+    }
+
+    public SaveData GetSaveData()
+    {
+        return saveData;
     }
 }

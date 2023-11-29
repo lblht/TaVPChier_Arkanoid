@@ -5,15 +5,34 @@ using UnityEngine;
 
 public class Paddle : MonoBehaviour
 {
-    float paddleSpeed = 60;
+    float paddleSpeed = 6;
     float posClamp = 8f - 0.223f - 1.25f;
     float paddleWidth = 2.5f;
+    float mouseX;
     [SerializeField] bool autoPlayer = false;
 
     void Update()
     {
-        float mouseX;
-        if(!autoPlayer)
+        Application.targetFrameRate = 60; // TODO: FIX!
+
+        mouseX = Input.GetAxis("Mouse X");
+
+        float amountToMove = mouseX * paddleSpeed * Time.deltaTime;
+        float paddlePosX = transform.position.x + amountToMove;
+        transform.position = new Vector3(Mathf.Clamp(paddlePosX, -posClamp, posClamp), transform.position.y, 0);
+    }
+
+    void FixedUpdate()
+    {
+        
+    }
+
+    public float GetPaddleWidth()
+    {
+        return paddleWidth;
+    }
+
+     /*if(!autoPlayer)
         {
             mouseX = Input.GetAxis("Mouse X");
         }
@@ -26,14 +45,5 @@ public class Paddle : MonoBehaviour
                 mouseX = -0.2f;
             else 
                 mouseX = 0;
-        }
-        float amountToMove = mouseX * paddleSpeed * Time.deltaTime;
-        float paddlePosX = transform.position.x + amountToMove;
-        transform.position = new Vector3(Mathf.Clamp(paddlePosX, -posClamp, posClamp), transform.position.y, 0);
-    }
-
-    public float GetPaddleWidth()
-    {
-        return paddleWidth;
-    }
+        }*/
 }

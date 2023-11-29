@@ -3,7 +3,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class LevelData
 {
-    public int leveID;
+    public int levelID;
     public int score;
     public int stars;
 }
