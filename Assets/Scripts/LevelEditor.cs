@@ -2,21 +2,29 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
+using UnityEngine.UI;
+using TMPro;
 
 public class LevelEditor : MonoBehaviour
 {
-    [SerializeField] List<GameObject> blocks = new List<GameObject>();
+    [SerializeField] LevelDataScriptableObject levelData;
     [SerializeField] Grid grid;
     [SerializeField] GameObject placementHighlitePrefab;
+    [SerializeField] SpriteRenderer backgroundImage;
+    [SerializeField] TextMeshProUGUI backgroundText;
+    [SerializeField] TMP_InputField levelNameInput;
+    [SerializeField] SceneLoader sceneLoader;
 
     GameObject placementHighlite;
     Vector3 mouseGridPos;
     int selectedBlockId = 1;
-    CustomLevelSaveData saveData;
-    string levelName;
+    CustomLevelSaveData saveData = new CustomLevelSaveData();
+    int background = 0;
+  
     void Start()
     {
         placementHighlite = Instantiate(placementHighlitePrefab, Input.mousePosition, Quaternion.identity);
+        ChangeBackground(0);
     }
 
     void Update()
@@ -55,7 +63,7 @@ public class LevelEditor : MonoBehaviour
             }
         }
 
-        GameObject block = Instantiate(blocks[selectedBlockId], mouseGridPos, Quaternion.identity);
+        GameObject block = Instantiate(levelData.GetBlocks()[selectedBlockId], mouseGridPos, Quaternion.identity);
         block.transform.parent = grid.gameObject.transform;
     }
 
@@ -76,23 +84,42 @@ public class LevelEditor : MonoBehaviour
         selectedBlockId = id;
     }
 
+    public void ChangeBackground(int dir)
+    {
+        background += dir;
+        if(background < 0)
+            background = levelData.GetBackgrounds().Count -1;
+        if(background > levelData.GetBackgrounds().Count -1)
+            background = 0;
+        
+        backgroundImage.sprite = levelData.GetBackgrounds()[background];
+        backgroundText.text = "Background " + background.ToString();
+    }
+
     public void Save()
     {
         if(!Directory.Exists(Application.dataPath + "/CustomLevels"))
             Directory.CreateDirectory(Application.dataPath + "/CustomLevels");
 
-        /*TODO -- populate saveData*/
+        string levelName = levelNameInput.text;
+        if(levelName == "")
+            return;
 
-        //string json = JsonUtility.ToJson(saveData, true);
-        //File.WriteAllText(Application.dataPath + "/CustomLevels/" + levelName + ".json", json);
+        foreach(Transform existingBlock in grid.gameObject.transform)
+        {
+            BlockData block = new BlockData();
+            if(existingBlock.GetComponent<Block>() == null)
+                block.blockType = 0;
+            else
+                block.blockType = existingBlock.gameObject.GetComponent<Block>().GetBlockID();
+            block.position = existingBlock.position;
+            saveData.blocks.Add(block);     
+        }
+        saveData.background = background;
+
+        string json = JsonUtility.ToJson(saveData, true);
+        File.WriteAllText(Application.dataPath + "/CustomLevels/" + levelName + ".json", json);
+
+        sceneLoader.LoadScene("CustomLevels");
     }
-
-    /*public CustomLevelSaveData Load(string levelName)
-    {
-        if(!Directory.Exists(Application.dataPath + "/CustomLevels"))
-            Directory.CreateDirectory(Application.dataPath + "/CustomLevels");
-
-        string json = File.ReadAllText(Application.dataPath + "/CustomLevels/" + levelName + ".json");
-        return JsonUtility.FromJson<CustomLevelSaveData>(json);
-    }*/
 }

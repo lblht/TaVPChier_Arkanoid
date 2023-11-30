@@ -209,16 +209,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335a4c0c5de47fa4cacf164fabf9180c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blocks:
-  - {fileID: 8186551383095220437, guid: ecef70701d5f1b748b88f06b3ed96e5b, type: 3}
-  - {fileID: 3035449330799975196, guid: 03d1fb3122484a54f9d246125eccfe1f, type: 3}
-  - {fileID: 484164056922649075, guid: 7896a884050f58446af076b2199c8fcb, type: 3}
-  - {fileID: 3620507555324403594, guid: 98444ef50d3123541bbc8c6f6cdcc035, type: 3}
-  - {fileID: 469919585490449812, guid: 66c28ea09a7bee144b3d8fe30ad2b8a1, type: 3}
-  - {fileID: 5631193811351323423, guid: 47bfaeffb0942494b8dab9d4a951d562, type: 3}
-  - {fileID: 2746598966445179056, guid: 6a36de6bd5601b94b96702e100b66afc, type: 3}
+  levelData: {fileID: 11400000, guid: e4097a2534257384abffe5a7e0cd8767, type: 2}
   grid: {fileID: 316885307}
   placementHighlitePrefab: {fileID: 8706086662689767225, guid: 343a800610de8b54dbbc3fff7d8ca875, type: 3}
+  backgroundImage: {fileID: 346497914}
+  backgroundText: {fileID: 1943637914}
+  levelNameInput: {fileID: 393961078}
+  sceneLoader: {fileID: 1700232519}
 --- !u!4 &100885834
 Transform:
   m_ObjectHideFlags: 0
@@ -728,7 +725,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1440, y: 1080}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1121,14 +1118,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 5
+      - m_Target: {fileID: 100885833}
+        m_TargetAssemblyTypeName: LevelEditor, Assembly-CSharp
+        m_MethodName: ChangeBackground
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: LevelSelection
           m_BoolArgument: 0
@@ -1153,7 +1150,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3a81866a53457443b606f11f3cf9c66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 698aaf0e48ade3946ab92de0b42d35c4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2058,14 +2055,14 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: 
-        m_Mode: 5
+      - m_Target: {fileID: 100885833}
+        m_TargetAssemblyTypeName: LevelEditor, Assembly-CSharp
+        m_MethodName: ChangeBackground
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: LevelSelection
           m_BoolArgument: 0
@@ -2090,7 +2087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e3a81866a53457443b606f11f3cf9c66, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 43140cdd1db38f0408a6278ad64b53ce, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2144,7 +2141,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 1, g: 1, b: 1, a: 0}
+  m_BackGroundColor: {r: 0, g: 0, b: 0, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

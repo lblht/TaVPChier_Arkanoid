@@ -1,11 +1,12 @@
 using System.Collections.Generic;
 using System.Numerics;
+using UnityEngine;
 
 [System.Serializable]
 public class BlockData
 {
     public int blockType;
-    public Vector2 position;
+    public UnityEngine.Vector3 position;
 }
 
 [System.Serializable]

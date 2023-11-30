@@ -143,6 +143,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc438cedecb62b24a9b1491ff25b1679, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  blockID: -1
   blockScore: 0
   hitsToTake: 1
   destroyEffect: {fileID: 7945529743585440664, guid: feb07dd8902999f4fbf4d91199ded269, type: 3}

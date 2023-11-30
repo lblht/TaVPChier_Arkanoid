@@ -10,6 +10,7 @@ public class Block : MonoBehaviour
 
     public delegate void OnBlockEnabled();
     public static event OnBlockEnabled onBlockEnabled;
+    [SerializeField] int blockID;
     [SerializeField] int blockScore;
     [SerializeField] int hitsToTake;
     [SerializeField] GameObject destroyEffect;
@@ -55,5 +56,10 @@ public class Block : MonoBehaviour
         var psMain = effect.GetComponent<ParticleSystem>().main;
         psMain.startColor = GetComponent<SpriteRenderer>().color;
         Destroy(effect, 5);
+    }
+
+    public int GetBlockID()
+    {
+        return blockID;
     }
 }

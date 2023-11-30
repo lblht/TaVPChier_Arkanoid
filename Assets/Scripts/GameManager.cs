@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance;
     LevelData lastLevel = new LevelData();
     SaveData saveData = new SaveData();
+    string customLevelToLoad;
 
     void Awake() 
     { 
@@ -44,9 +45,12 @@ public class GameManager : MonoBehaviour
         lastLevel.score = score;
         lastLevel.stars = stars;
 
-        LevelData savedLevel = LoadLevelProgress(lastLevel.levelID);
-        if((savedLevel.score < lastLevel.score) || (savedLevel.score == lastLevel.score && savedLevel.stars < lastLevel.stars))
-            SaveLevelProgress(lastLevel);
+        if(levelID >= 0)
+        {
+            LevelData savedLevel = LoadLevelProgress(lastLevel.levelID);
+            if((savedLevel.score < lastLevel.score) || (savedLevel.score == lastLevel.score && savedLevel.stars < lastLevel.stars))
+                SaveLevelProgress(lastLevel);
+        }
     }
 
     public void SaveLevelProgress(LevelData levelData)
@@ -86,5 +90,15 @@ public class GameManager : MonoBehaviour
     public SaveData GetSaveData()
     {
         return saveData;
+    }
+
+    public void SetCustomLevelToLoad(string levelName)
+    {
+        customLevelToLoad = levelName;
+    }
+
+    public string GetCustomLevelToLoad()
+    {
+        return customLevelToLoad;
     }
 }

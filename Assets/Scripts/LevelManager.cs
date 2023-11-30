@@ -64,6 +64,8 @@ public class LevelManager : MonoBehaviour
         {
             string levelName = SceneManager.GetActiveScene().name; 
             int levelID = (int)char.GetNumericValue(levelName[levelName.Length - 1]);
+            if(levelName == "CustomLevel")
+                levelID = -1;
             GameManager.Instance.LastLevelStats(levelID, this.score, currentLives);
             sceneLoader.LoadScene("WinScreen");
         }

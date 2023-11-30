@@ -149,6 +149,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8914255414540073414, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
+      propertyPath: blockID
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8914255414540073414, guid: 1d4170e67cbf3e4429521c3f7b3ff5db, type: 3}
       propertyPath: blockScore
       value: 150
       objectReference: {fileID: 0}
