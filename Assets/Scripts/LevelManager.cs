@@ -76,8 +76,8 @@ public class LevelManager : MonoBehaviour
         balls.Remove(ball);
         if(balls.Count <= 0)
         {
-            Destroy(paddle);
             UpdateLives(currentLives-1);
+            Destroy(paddle);
             AddPaddleAndBall();
         }
     }

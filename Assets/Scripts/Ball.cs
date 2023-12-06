@@ -30,9 +30,14 @@ public class Ball : MonoBehaviour
                 onBallDestroyed(this.gameObject);
         }
 
+        if(transform.parent == null && (moveDir == Vector2.up || moveDir == -Vector2.up || moveDir == Vector2.right || moveDir == -Vector2.right))
+        {
+            moveDir += new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
+            rb.velocity = moveDir.normalized * speed;
+        }
+
         if(transform.parent == null && (transform.position == lastFramePos || rb.velocity.magnitude < 10 ))
         {
-            moveDir *= new Vector2(Random.Range(-0.2f, 0.2f), Random.Range(-0.2f, 0.2f));
             rb.velocity = moveDir.normalized * speed;
         }
         lastFramePos = transform.position;

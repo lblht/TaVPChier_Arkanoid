@@ -14,9 +14,12 @@ public class SceneLoader : MonoBehaviour
     }
     public void LoadScene(string sceneName)
     {
-        animator.Play("TransitionIn");
-        asyncLoad = SceneManager.LoadSceneAsync(sceneName);
-        asyncLoad.allowSceneActivation = false;
+        if(!animator.GetCurrentAnimatorStateInfo(0).IsName("TransitionIn"))
+        {
+            animator.Play("TransitionIn");
+            asyncLoad = SceneManager.LoadSceneAsync(sceneName);
+            asyncLoad.allowSceneActivation = false;
+        }
     }
 
     public void SceneLoadAnimDone()

@@ -55,7 +55,9 @@ public class GameManager : MonoBehaviour
 
     public void SaveLevelProgress(LevelData levelData)
     {
-        saveData.levelSaves[levelData.levelID-1] = levelData;
+        saveData.levelSaves[levelData.levelID-1].levelID = levelData.levelID;
+        saveData.levelSaves[levelData.levelID-1].score = levelData.score;
+        saveData.levelSaves[levelData.levelID-1].stars = levelData.stars;
     }
 
     public LevelData LoadLevelProgress(int levelID)
