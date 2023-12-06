@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     LevelData lastLevel = new LevelData();
     SaveData saveData = new SaveData();
     string customLevelToLoad;
+    int totalScore;
+    int totalStars;
 
     void Awake() 
     { 
@@ -21,7 +23,7 @@ public class GameManager : MonoBehaviour
 
         if(!File.Exists(Application.dataPath + "/save.json"))
         {
-            SetPlayerName("UnknowPlayer");
+            SetPlayerName("UnknownPlayer");
             Save(saveData);
         }
         else
@@ -37,6 +39,26 @@ public class GameManager : MonoBehaviour
     public string GetPlayerName()
     {
         return saveData.playerName;
+    }
+
+    public void SetTotalScore(int score)
+    {
+        totalScore = score;
+    }
+
+    public int GetTotalScore()
+    {
+        return totalScore;
+    }
+
+    public void SetTotalStars(int stars)
+    {
+        totalStars = stars;
+    }
+
+    public int GetTotalStars()
+    {
+        return totalStars;
     }
 
     public void LastLevelStats(int levelID, int score, int stars)
