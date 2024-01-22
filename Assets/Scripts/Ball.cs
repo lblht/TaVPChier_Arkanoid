@@ -29,24 +29,12 @@ public class Ball : MonoBehaviour
             if(onBallDestroyed != null)
                 onBallDestroyed(this.gameObject);
         }
-
-        if(transform.parent == null && (moveDir == Vector2.up || moveDir == -Vector2.up || moveDir == Vector2.right || moveDir == -Vector2.right))
-        {
-            moveDir += new Vector2(Random.Range(-0.1f, 0.1f), Random.Range(-0.1f, 0.1f));
-            rb.velocity = moveDir.normalized * speed;
-        }
-
-        if(transform.parent == null && (transform.position == lastFramePos || rb.velocity.magnitude < 10 ))
-        {
-            rb.velocity = moveDir.normalized * speed;
-        }
-        lastFramePos = transform.position;
     }
 
     void OnCollisionEnter2D(Collision2D collision)
     {
         boingSound.Play();
-        rb.velocity = Vector2.zero;
+        moveDir = rb.velocity.normalized;
 
         if(collision.gameObject.tag == "Paddle")
         {
@@ -59,19 +47,13 @@ public class Ball : MonoBehaviour
             float finalAngle = Mathf.LerpAngle(minAngle, maxAngle, t) * -Mathf.Sign(transform.position.x - paddlePosX);
             Quaternion finalRotation = Quaternion.AngleAxis(finalAngle, Vector3.forward);
             moveDir = finalRotation * Vector3.up;
+            rb.velocity = moveDir.normalized * speed;
         }
-        else
+        else if(Vector3.Angle(moveDir, Vector3.Reflect(moveDir, collision.contacts[0].normal)) > 160 )
         {
-            if(Vector3.Angle(moveDir, Vector3.Reflect(moveDir, collision.contacts[0].normal)) > 160 )
-            {
-                Quaternion finalRotation = Quaternion.AngleAxis(160, moveDir);
-                moveDir = finalRotation * collision.contacts[0].normal;
-            }
-            else
-                moveDir = Vector3.Reflect(moveDir, collision.contacts[0].normal);
-            Debug.DrawLine(collision.contacts[0].point, collision.contacts[0].point + moveDir * 5f, Color.red, 5f);
+            Quaternion finalRotation = Quaternion.AngleAxis(160, moveDir);
+            moveDir = finalRotation * collision.contacts[0].normal;
+            rb.velocity = moveDir.normalized * speed;
         }
-
-        rb.velocity = moveDir.normalized * speed;
     }
 }

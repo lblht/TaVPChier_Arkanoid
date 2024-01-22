@@ -34,7 +34,17 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerName(string name)
     {
-        saveData.playerName = name;
+        if(name == "UnknownPlayer")
+        {
+            saveData.playerName = name;
+        }
+        else if(name != saveData.playerName)
+        {
+            File.Delete(Application.dataPath + "/save.json");
+            saveData = new SaveData();
+            saveData.playerName = name;
+            Save(saveData);
+        }
     }
     public string GetPlayerName()
     {

@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
     int currentLives;
     int numberOfBlocks = 0;
     int score;
+    bool doNotAcceptBlockDestroy = false;
 
     void OnEnable()
     {
@@ -57,18 +58,30 @@ public class LevelManager : MonoBehaviour
 
     void BlockDestroyed(int score)
     {
-        numberOfBlocks--;
-        this.score += score;
-        UpdateScore();
-        if(numberOfBlocks <= 0)
+        if(doNotAcceptBlockDestroy)
         {
-            string levelName = SceneManager.GetActiveScene().name; 
-            int levelID = (int)char.GetNumericValue(levelName[levelName.Length - 1]);
-            if(levelName == "CustomLevel")
-                levelID = -1;
-            GameManager.Instance.LastLevelStats(levelID, this.score, currentLives);
-            sceneLoader.LoadScene("WinScreen");
+            return;
         }
+        else
+        {
+            numberOfBlocks--;
+            this.score += score;
+            UpdateScore();
+            if(numberOfBlocks <= 0)
+            {
+                string levelName = SceneManager.GetActiveScene().name; 
+                int levelID = (int)char.GetNumericValue(levelName[levelName.Length - 1]);
+                if(levelName == "CustomLevel")
+                    levelID = -1;
+                GameManager.Instance.LastLevelStats(levelID, this.score, currentLives);
+                sceneLoader.LoadScene("WinScreen");
+            }
+        }
+    }
+
+    public void DoNotAcceptBlockDestroy()
+    {
+        doNotAcceptBlockDestroy = true;
     }
 
     void BallDestroyed(GameObject ball)
@@ -91,6 +104,7 @@ public class LevelManager : MonoBehaviour
         }
         else
         {
+            doNotAcceptBlockDestroy = true;
             sceneLoader.LoadScene("LoseScreen");
         }
     }
